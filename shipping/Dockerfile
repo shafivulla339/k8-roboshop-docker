@@ -47,7 +47,7 @@ RUN mvn package
 # COPY src /opt/shipping/src/
 # RUN mvn package
 
-FROM openjdk:11-slim
+FROM openjdk-8-jre-headless
 EXPOSE 8080
 WORKDIR /opt/shipping
 ENV CART_ENDPOINT=cart:8080
