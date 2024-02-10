@@ -1,4 +1,4 @@
-FROM debian:10 AS build
+FROM debian:latest AS build
 
 # Set the TERM environment variable
 ENV TERM=xterm
