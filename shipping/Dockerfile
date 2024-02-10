@@ -12,10 +12,6 @@ RUN dpkg --configure -a
 # Fix unmet dependencies
 RUN apt-get -f install -y
 
-# Remove and reinstall problematic packages
-RUN apt-get remove --purge -y ca-certificates-java openjdk-11-jre-headless:amd64
-RUN apt-get install -y ca-certificates-java openjdk-11-jre-headless:amd64
-
 # Install Maven
 RUN apt-get install -y maven
 
@@ -47,7 +43,7 @@ RUN mvn package
 # COPY src /opt/shipping/src/
 # RUN mvn package
 
-FROM openjdk-8-jre-headless
+FROM openjdk:8-jdk
 EXPOSE 8080
 WORKDIR /opt/shipping
 ENV CART_ENDPOINT=cart:8080
