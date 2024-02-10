@@ -1,10 +1,19 @@
 FROM debian:10 AS build
-RUN apt-get update && apt-get -y install maven
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y maven
 WORKDIR /opt/shipping
 COPY pom.xml /opt/shipping/
 RUN mvn dependency:resolve
 COPY src /opt/shipping/src/
 RUN mvn package
+# Install missing dependencies explicitly
+RUN apt-get install -y --fix-missing ca-certificates-java openjdk-11-jre-headless:amd64
+
+# Clean up cached package files
+RUN apt-get clean && apt-get autoclean
+
+# Retry the failed steps
+RUN mvn packag
 
 FROM openjdk:8-jre-alpine
 EXPOSE 8080
