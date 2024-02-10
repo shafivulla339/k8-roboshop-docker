@@ -1,8 +1,5 @@
 FROM debian:latest AS build
 
-# Set the TERM environment variable
-ENV TERM=xterm
-
 # Update package lists
 RUN apt-get update
 
